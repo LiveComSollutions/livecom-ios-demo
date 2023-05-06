@@ -17,17 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        window?.rootViewController = UIStoryboard(name: "Main", bundle: .main).instantiateInitialViewController()
-        window?.makeKeyAndVisible()
-
-        let brand = Appearence.AppTheme.Brand(
+        let theme = Appearence.AppTheme(
             primary: .white,
             secondary: .black,
             gradientFirst: .cyan,
             gradientSecond: .yellow
         )
-        let theme = Appearence.AppTheme(brand: brand)
-        let appearence = Appearence(theme: theme, cornerRadius: nil, font: nil)
+        let appearence = Appearence(theme: theme)
 
         let sdkKey = UserDefaults.standard.string(forKey: "sdkKey") ?? demoSDKKey
 

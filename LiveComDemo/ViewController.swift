@@ -16,14 +16,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.text = demoSDKKey
-        sdkVersionLabel.text = "SDK version: \(LiveCom.version)"
+        sdkVersionLabel.text = "SDK version: \(LiveCom.sdkVersion)"
         view.hideKeyboardWhenTappedAround()
 
         LiveCom.shared.delegate = self
-    }
-
-    deinit {
-        print()
     }
 
     func startLoading() {
@@ -106,18 +102,19 @@ extension ViewController: UITextFieldDelegate {
 // MARK: - LiveComDelegate
 extension ViewController: LiveComDelegate {
 
-    func productController(forSKU productSKU: String) -> UIViewController? {
-        nil
+    func userDidRequestOpenCheckoutScreen(productSKUs: [String], presenting presentingViewController: UIViewController) -> Bool {
+        false
     }
 
-    func checkoutController(forSKUs productSKUs: [String]) -> UIViewController? {
-        nil
+    func userDidRequestOpenProductScreen(forSKU productSKU: String, presenting presentingViewController: UIViewController) -> Bool {
+        false
     }
 
-    func didChangeCart(productSKUs: [String]) {
+    func cartDidChange(productSKUs: [String]) {
         let productSKUs = productSKUs.joined(separator: "\r\n")
-        print("[LiveCom] didChangeCart productSKUs: \(productSKUs)")
+        print("[LiveCom] cartDidChange productSKUs: \(productSKUs)")
     }
+
     func liveComWillAppear() {
         print("[LiveCom] liveComWillAppear")
     }
