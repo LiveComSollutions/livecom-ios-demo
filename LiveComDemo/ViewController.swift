@@ -102,17 +102,32 @@ extension ViewController: UITextFieldDelegate {
 // MARK: - LiveComDelegate
 extension ViewController: LiveComDelegate {
 
-    func userDidRequestOpenCheckoutScreen(productSKUs: [String], presenting presentingViewController: UIViewController) -> Bool {
+    func userDidRequestOpenCheckoutScreen(
+        products: [LiveCom.Product],
+        presenting presentingViewController: UIViewController
+    ) -> Bool {
         false
     }
 
-    func userDidRequestOpenProductScreen(forSKU productSKU: String, presenting presentingViewController: UIViewController) -> Bool {
+    func userDidRequestOpenProductScreen(
+        for product: LiveCom.Product,
+        streamId: String,
+        presenting presentingViewController: UIViewController
+    ) -> Bool {
         false
     }
 
-    func cartDidChange(productSKUs: [String]) {
-        let productSKUs = productSKUs.joined(separator: "\r\n")
+    func cartDidChange(products: [LiveCom.Product]) {
+        let productSKUs = products.map(\.sku).joined(separator: "\r\n")
         print("[LiveCom] cartDidChange productSKUs: \(productSKUs)")
+    }
+
+    func productDidAddToCart(_ product: LiveCom.Product, inStreamId streamId: String) {
+        print("[LiveCom] productDidAddToCart productSKU: \(product.sku) streamId: \(streamId)")
+    }
+
+    func productDidDeleteFromCart(_ productSKU: String) {
+        print("[LiveCom] productDidAddToCart productSKU: \(productSKU)")
     }
 
     func liveComWillAppear() {
